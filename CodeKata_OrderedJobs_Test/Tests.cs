@@ -52,7 +52,7 @@ namespace CodeKata_OrderedJobs_Test
         }
 
         [TestMethod]
-        public void RegisterTwo_AlphabetGap_Ordered_Sort()
+        public void RegisterTwo_AlphabetGap_InsertionOrder_Sort()
         {
             testInstance.Register('a');
             testInstance.Register('c');
