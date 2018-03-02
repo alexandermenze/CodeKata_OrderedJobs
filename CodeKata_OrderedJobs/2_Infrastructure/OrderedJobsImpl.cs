@@ -6,24 +6,27 @@ namespace CodeKata_OrderedJobs.Infrastructure
 {
     public class OrderedJobsImpl : IOrderedJobs
     {
-        private ICollection<char> jobs = new List<char>();
+        private IDictionary<char, char?> jobs = new Dictionary<char, char?>();
 
-        public void Register(char dependentJob, char independentJob)
+        public void Register(char jobId, char dependsOn)
         {
-            
+            if (jobs.ContainsKey(dependsOn))
+            {
+                jobs.Add(jobId, jobs[dependsOn] - 1);
+            }
         }
 
         public void Register(char jobId)
         {
-            if (jobs.Contains(jobId))
+            if (jobs.ContainsKey(jobId))
                 return;
 
-            jobs.Add(jobId);
+            jobs.Add(jobId, int.MaxValue);
         }
 
         public string Sort()
         {
-            return new string(jobs.ToArray());
+            return new string(jobs.OrderBy(job => job.Value).Select(job => job.Key).ToArray());
         }
     }
 }

@@ -59,5 +59,23 @@ namespace CodeKata_OrderedJobs_Test
             testInstance.Register('b');
             Assert.AreEqual("acb", testInstance.Sort());
         }
+
+        [TestMethod]
+        public void RegisterTwoDependant_InOrder_Sort()
+        {
+            testInstance.Register('a');
+            testInstance.Register('b', 'a');
+            testInstance.Register('c', 'b');
+            Assert.AreEqual("cba", testInstance.Sort());
+        }
+
+        [TestMethod]
+        public void RegisterTwoDependant_Unordered_Sort()
+        {
+            testInstance.Register('c');
+            testInstance.Register('a', 'b');
+            testInstance.Register('b', 'c');
+            Assert.AreEqual("abc", testInstance.Sort());
+        }
     }
 }
