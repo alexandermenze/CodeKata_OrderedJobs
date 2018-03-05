@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="0_Domain\Job.cs" />
+    <Compile Include="0_Domain\TreeNode.cs" />
     <Compile Include="1_BL\IOrderedJobs.cs" />
     <Compile Include="2_Infrastructure\OrderedJobsImpl.cs" />
     <Compile Include="Program.cs" />
