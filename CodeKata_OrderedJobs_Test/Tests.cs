@@ -1,129 +1,128 @@
-﻿using CodeKata_OrderedJobs.BL;
-using CodeKata_OrderedJobs.Infrastructure;
+﻿using System;
+using CodeKata_OrderedJobs.BL;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace CodeKata_OrderedJobs_Test
 {
     [TestClass]
     public class Tests
     {
-        private IOrderedJobs testInstance;
+        private IOrderedJobs _testInstance;
 
         [TestInitialize]
         public void InitializeTests()
         {
-            testInstance = new OrderedJobsImpl();
+            _testInstance = new OrderedJobsImpl();
         }
 
         [TestMethod]
         public void RegisterSingleJob_Sort()
         {
-            testInstance.Register('a');
-            Assert.AreEqual("a", testInstance.Sort());
+            _testInstance.Register('a');
+            Assert.AreEqual("a", _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterTwoJobs_Sort()
         {
-            testInstance.Register('a');
-            testInstance.Register('b');
-            testInstance.Register('c');
-            Assert.AreEqual("abc", testInstance.Sort());
+            _testInstance.Register('a');
+            _testInstance.Register('b');
+            _testInstance.Register('c');
+            Assert.AreEqual("abc", _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterSingleDependency_Sort()
         {
-            testInstance.Register('a');
-            testInstance.Register('b', 'c');
-            testInstance.Register('c');
-            Assert.AreEqual("acb", testInstance.Sort());
+            _testInstance.Register('a');
+            _testInstance.Register('b', 'c');
+            _testInstance.Register('c');
+            Assert.AreEqual("acb", _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterSingleJobDouble_Sort()
         {
-            testInstance.Register('a');
-            testInstance.Register('a');
-            Assert.AreEqual("a", testInstance.Sort());
+            _testInstance.Register('a');
+            _testInstance.Register('a');
+            Assert.AreEqual("a", _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterMultiplejobs_MultipleDouble_Sort()
         {
-            testInstance.Register('a');
-            testInstance.Register('a');
-            testInstance.Register('b');
-            testInstance.Register('c');
-            testInstance.Register('b');
-            testInstance.Register('d');
-            testInstance.Register('a');
-            Assert.AreEqual("abcd", testInstance.Sort());
+            _testInstance.Register('a');
+            _testInstance.Register('a');
+            _testInstance.Register('b');
+            _testInstance.Register('c');
+            _testInstance.Register('b');
+            _testInstance.Register('d');
+            _testInstance.Register('a');
+            Assert.AreEqual("abcd", _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterTwo_AlphabetGap_InsertionOrder_Sort()
         {
-            testInstance.Register('a');
-            testInstance.Register('c');
-            testInstance.Register('b');
-            Assert.AreEqual("acb", testInstance.Sort());
+            _testInstance.Register('a');
+            _testInstance.Register('c');
+            _testInstance.Register('b');
+            Assert.AreEqual("acb", _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterTwoDependant_InOrder_Sort()
         {
-            testInstance.Register('a');
-            testInstance.Register('a', 'b');
-            testInstance.Register('b', 'c');
-            Assert.AreEqual("cba", testInstance.Sort());
+            _testInstance.Register('a');
+            _testInstance.Register('a', 'b');
+            _testInstance.Register('b', 'c');
+            Assert.AreEqual("cba", _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterTwoDependant_Unordered_Sort()
         {
-            testInstance.Register('c');
-            testInstance.Register('b', 'a');
-            testInstance.Register('c', 'b');
-            Assert.AreEqual("abc", testInstance.Sort());
+            _testInstance.Register('c');
+            _testInstance.Register('b', 'a');
+            _testInstance.Register('c', 'b');
+            Assert.AreEqual("abc", _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterMultipleJobs_MultipleDependencies_Sort()
         {
-            testInstance.Register('a');
-            testInstance.Register('b', 'c');
-            testInstance.Register('c', 'f');
-            testInstance.Register('d', 'a');
-            testInstance.Register('e', 'b');
-            testInstance.Register('f');
-            Assert.AreEqual("afcbde", testInstance.Sort());
+            _testInstance.Register('a');
+            _testInstance.Register('b', 'c');
+            _testInstance.Register('c', 'f');
+            _testInstance.Register('d', 'a');
+            _testInstance.Register('e', 'b');
+            _testInstance.Register('f');
+            Assert.AreEqual("afcbde", _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterMultipleJobs_SelfReference_Sort()
         {
-            testInstance.Register('a');
-            testInstance.Register('b');
-            testInstance.Register('c', 'c');
-            Assert.ThrowsException<InvalidOperationException>(() => testInstance.Sort());
+            _testInstance.Register('a');
+            _testInstance.Register('b');
+            _testInstance.Register('c', 'c');
+            Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterMultipleJobs_CircularReference_Sort()
         {
-            testInstance.Register('a', 'c');
-            testInstance.Register('b');
-            testInstance.Register('c', 'a');
-            Assert.ThrowsException<InvalidOperationException>(() => testInstance.Sort());
+            _testInstance.Register('a', 'c');
+            _testInstance.Register('b');
+            _testInstance.Register('c', 'a');
+            Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort());
         }
 
         [TestMethod]
         public void RegisterSingleJob_RegisterOnlyAsDependency_Sort()
         {
-            testInstance.Register('f', 'e');
-            Assert.AreEqual("ef", testInstance.Sort());
+            _testInstance.Register('f', 'e');
+            Assert.AreEqual("ef", _testInstance.Sort());
         }
     }
 }

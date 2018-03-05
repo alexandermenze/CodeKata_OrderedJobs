@@ -45,13 +45,16 @@
     <Compile Include="0_Domain\Job.cs" />
     <Compile Include="0_Domain\TreeNode.cs" />
     <Compile Include="1_BL\IOrderedJobs.cs" />
-    <Compile Include="2_Infrastructure\OrderedJobsImpl.cs" />
+    <Compile Include="1_BL\JobSorter.cs" />
+    <Compile Include="1_BL\OrderedJobsImpl.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="2_Infrastructure\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
