@@ -1,4 +1,5 @@
 ﻿using CodeKata_OrderedJobs.BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,11 +8,11 @@ namespace CodeKata_OrderedJobs.Infrastructure
 {
     public class OrderedJobsImpl : IOrderedJobs
     {
-        private List<char> jobs = new List<char>();
-        private Dictionary<char, List<char>> rules = new Dictionary<char, List<char>>();
-        private Dictionary<char, int> orderedJobs = new Dictionary<char, int>();
-        private List<char> finished = new List<char>();
-        private StringBuilder output = new StringBuilder();
+        private ICollection<char> jobIds = new List<char>();
+        private IDictionary<char, List<char>> rules = new Dictionary<char, List<char>>();
+
+        private ICollection<char> finished = new List<char>();
+        private Stack<char> processingStack = new Stack<char>();
 
         public void Register(char jobId, char dependsOn)
         {
@@ -28,31 +29,43 @@ namespace CodeKata_OrderedJobs.Infrastructure
 
         public void Register(char jobId)
         {
-            if (!jobs.Contains(jobId))
-                jobs.Add(jobId);
+            if (!jobIds.Contains(jobId))
+                jobIds.Add(jobId);
         }
 
         public string Sort()
         {
-            output.Clear();
-            foreach(var job in jobs)
+            var stringBuilder = new StringBuilder();
+            foreach(var job in jobIds)
             {
-                Create(job);
+                Process(job, stringBuilder);
             }
-            return output.ToString();
+            return stringBuilder.ToString();
         }
 
-        private void Create(char c)
+        private void Process(char c, StringBuilder stringBuilder)
         {
-            if (finished.Contains(c)) return;
+            if (processingStack.Contains(c))
+                throw new InvalidOperationException("Circular dependency!");
+
+            processingStack.Push(c);
+            InternalProcess(c, stringBuilder);
+            processingStack.Pop();
+        }
+
+        private void InternalProcess(char c, StringBuilder stringBuilder)
+        {
+            if (finished.Contains(c))
+                return;
+
             if (rules.ContainsKey(c))
             {
-                foreach (var rule in rules[c])
+                foreach (var ruleJobId in rules[c])
                 {
-                    Create(rule);
+                    Process(ruleJobId, stringBuilder);
                 }
             }
-            output.Append(c);
+            stringBuilder.Append(c);
             finished.Add(c);
         }
     }
