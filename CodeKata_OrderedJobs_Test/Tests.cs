@@ -64,8 +64,8 @@ namespace CodeKata_OrderedJobs_Test
         public void RegisterTwoDependant_InOrder_Sort()
         {
             testInstance.Register('a');
-            testInstance.Register('b', 'a');
-            testInstance.Register('c', 'b');
+            testInstance.Register('a', 'b');
+            testInstance.Register('b', 'c');
             Assert.AreEqual("cba", testInstance.Sort());
         }
 
