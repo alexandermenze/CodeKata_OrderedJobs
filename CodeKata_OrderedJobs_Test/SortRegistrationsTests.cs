@@ -11,16 +11,14 @@ namespace CodeKata_OrderedJobs_Test
 
         [TestInitialize]
         public void InitializeTests()
-        {
-            _testInstance = new OrderedJobsImpl();
-        }
+            => _testInstance = new OrderedJobsImpl();
 
         [TestMethod]
-        public void SortRegisterEmptyIn_EmptyOut() 
+        public void SortRegisterEmptyIn_EmptyOut()
             => Assert.AreEqual("", _testInstance.Sort(""));
 
         [TestMethod]
-        public void SortRegisterSingleJob() 
+        public void SortRegisterSingleJob()
             => Assert.AreEqual("a", _testInstance.Sort("a => "));
 
         [TestMethod]
@@ -28,7 +26,7 @@ namespace CodeKata_OrderedJobs_Test
             => Assert.AreEqual("ab", _testInstance.Sort("a => \nb => "));
 
         [TestMethod]
-        public void SortRegisterMultipleJobs() 
+        public void SortRegisterMultipleJobs()
             => Assert.AreEqual("abdefcg", _testInstance.Sort("a => \nb => \nd => \ne => \nf => \nc => \ng => "));
 
         [TestMethod]
@@ -72,7 +70,11 @@ namespace CodeKata_OrderedJobs_Test
             => Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b  =>a \n a => "));
 
         [TestMethod]
-        public void SortRegisterTwoJobs_IncorrectNewLine() 
+        public void SortRegisterTwoJobs_DifferentNewLineCharRN()
             => Assert.AreEqual("ab", _testInstance.Sort("b  => a\r\n a => "));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_DifferentNewLineCharR()
+            => Assert.AreEqual("ab", _testInstance.Sort("b  => a\r a => "));
     }
 }
