@@ -31,9 +31,10 @@ namespace CodeKata_OrderedJobs.Source
 
         public string Sort(string registrations)
         {
-            return string.IsNullOrEmpty(registrations)
-                ? ""
-                : registrations.Split(new[] {"=>"}, StringSplitOptions.RemoveEmptyEntries).First().Trim();
+            if (string.IsNullOrEmpty(registrations))
+                return "";
+
+            var dataLines = registrations.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }
