@@ -6,7 +6,7 @@ namespace CodeKata_OrderedJobs.Source
 {
     public class OrderedJobsImpl : IOrderedJobs
     {
-        private const char NewLine = '\n'; 
+        private const string RegistrationSplitString = " => ";
 
         private readonly ICollection<char> _jobIds = new List<char>();
         private readonly IDictionary<char, ICollection<char>> _rules = new Dictionary<char, ICollection<char>>();
@@ -33,13 +33,13 @@ namespace CodeKata_OrderedJobs.Source
 
         public string Sort(string registrations)
         {
-            var dataLines = registrations.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
+            var dataLines = registrations.SplitToLinesIgnoringEmpty();
             foreach (var entry in dataLines)
             {
-                if(!entry.Contains(" => "))
+                if (!entry.Contains(RegistrationSplitString))
                     throw new InvalidOperationException("Invalid entry: '" + entry + "'");
 
-                var data = entry.Split(new[] {" => "}, StringSplitOptions.RemoveEmptyEntries);
+                var data = entry.Split(new[] {RegistrationSplitString}, StringSplitOptions.RemoveEmptyEntries);
                 if (data.Length > 1)
                     Register(data[0].Trim().ElementAt(0), data[1].Trim().ElementAt(0));
                 else if (data.Length > 0)

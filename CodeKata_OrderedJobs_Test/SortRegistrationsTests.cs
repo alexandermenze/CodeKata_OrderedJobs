@@ -72,9 +72,7 @@ namespace CodeKata_OrderedJobs_Test
             => Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b  =>a \n a => "));
 
         [TestMethod]
-        public void SortRegisterTwoJobs_IncorrectNewLine()
-        {
-            Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b => a\r\na => "));
-        }
+        public void SortRegisterTwoJobs_IncorrectNewLine() 
+            => Assert.AreEqual("ab", _testInstance.Sort("b  => a\r\n a => "));
     }
 }
