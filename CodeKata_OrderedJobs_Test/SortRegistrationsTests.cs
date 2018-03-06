@@ -1,5 +1,6 @@
 ﻿using CodeKata_OrderedJobs.Source;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace CodeKata_OrderedJobs_Test
 {
@@ -33,5 +34,47 @@ namespace CodeKata_OrderedJobs_Test
         [TestMethod]
         public void SortRegisterTwoJobs_Dependency()
             => Assert.AreEqual("ba", _testInstance.Sort("a => b\nb => "));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_Dependency_SpacesInText()
+            => Assert.AreEqual("ba", _testInstance.Sort("a   =>  b\nb => "));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_CircularDependency()
+            => Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("a => b\nb => a"));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_SelfDependency()
+            => Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b => b\na => b"));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_IncorrectSymbol()
+            => Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b -> a\na => "));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_IncorrectSpacing()
+            => Assert.AreEqual("ab", _testInstance.Sort("b  =>   a\na => "));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_IncorrectSpacing_2()
+            => Assert.AreEqual("ab", _testInstance.Sort("b  =>   a \n a => "));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_IncorrectSpacing_3()
+            => Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b  =>a \n a => "));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_IncorrectSpacing_4()
+            => Assert.AreEqual("ab", _testInstance.Sort(" b  => a\n a => "));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_IncorrectSpacing_5()
+            => Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b  =>a \n a => "));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_IncorrectNewLine()
+        {
+            Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b => a\r\na => "));
+        }
     }
 }
