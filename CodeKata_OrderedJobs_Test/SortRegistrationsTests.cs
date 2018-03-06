@@ -25,5 +25,13 @@ namespace CodeKata_OrderedJobs_Test
         [TestMethod]
         public void SortRegisterTwoJobs()
             => Assert.AreEqual("ab", _testInstance.Sort("a => \nb => "));
+
+        [TestMethod]
+        public void SortRegisterMultipleJobs() 
+            => Assert.AreEqual("abdefcg", _testInstance.Sort("a => \nb => \nd => \ne => \nf => \nc => \ng => "));
+
+        [TestMethod]
+        public void SortRegisterTwoJobs_Dependency()
+            => Assert.AreEqual("ba", _testInstance.Sort("a => b\nb => "));
     }
 }

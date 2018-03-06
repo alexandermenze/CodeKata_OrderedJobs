@@ -35,6 +35,18 @@ namespace CodeKata_OrderedJobs.Source
                 return "";
 
             var dataLines = registrations.Split(new[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var entry in dataLines)
+            {
+                var data = entry.Split(new[] {" => "}, StringSplitOptions.RemoveEmptyEntries);
+                if (data.Length > 1)
+                    Register(data[0].Trim().ElementAt(0), data[1].Trim().ElementAt(0));
+                else if (data.Length > 0)
+                    Register(data[0].Trim().ElementAt(0));
+                else
+                    throw new InvalidOperationException("Invalid entry: " + string.Join(' '.ToString(), data));
+            }
+
+            return Sort();
         }
     }
 }
