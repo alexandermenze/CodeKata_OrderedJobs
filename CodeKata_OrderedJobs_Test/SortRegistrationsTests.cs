@@ -50,23 +50,23 @@ namespace CodeKata_OrderedJobs_Test
             => Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b -> a\na => "));
 
         [TestMethod]
-        public void SortRegisterTwoJobs_IncorrectSpacing()
+        public void SortRegisterTwoJobs_IncorrectSpacing_Accept()
             => Assert.AreEqual("ab", _testInstance.Sort("b  =>   a\na => "));
 
         [TestMethod]
-        public void SortRegisterTwoJobs_IncorrectSpacing_2()
+        public void SortRegisterTwoJobs_IncorrectSpacing_2_Accept()
             => Assert.AreEqual("ab", _testInstance.Sort("b  =>   a \n a => "));
 
         [TestMethod]
-        public void SortRegisterTwoJobs_IncorrectSpacing_3()
+        public void SortRegisterTwoJobs_IncorrectSpacing_3_Reject()
             => Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b  =>a \n a => "));
 
         [TestMethod]
-        public void SortRegisterTwoJobs_IncorrectSpacing_4()
+        public void SortRegisterTwoJobs_IncorrectSpacing_4_Accept()
             => Assert.AreEqual("ab", _testInstance.Sort(" b  => a\n a => "));
 
         [TestMethod]
-        public void SortRegisterTwoJobs_IncorrectSpacing_5()
+        public void SortRegisterTwoJobs_IncorrectSpacing_5_Reject()
             => Assert.ThrowsException<InvalidOperationException>(() => _testInstance.Sort("b  =>a \n a => "));
 
         [TestMethod]
