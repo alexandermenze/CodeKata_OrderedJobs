@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CodeKata_OrderedJobs.BL
+namespace CodeKata_OrderedJobs.Source
 {
     internal class JobSorter
     {

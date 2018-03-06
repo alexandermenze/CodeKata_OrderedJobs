@@ -1,4 +1,4 @@
-﻿namespace CodeKata_OrderedJobs.BL
+﻿namespace CodeKata_OrderedJobs.Source
 {
     public interface IOrderedJobs
     {
@@ -6,5 +6,7 @@
         void Register(char job);
 
         string Sort();
+
+        string Sort(string registrations);
     }
 }

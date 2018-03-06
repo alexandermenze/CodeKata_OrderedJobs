@@ -1,11 +1,11 @@
 ﻿using System;
-using CodeKata_OrderedJobs.BL;
+using CodeKata_OrderedJobs.Source;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeKata_OrderedJobs_Test
 {
     [TestClass]
-    public class Tests
+    public class DefaultRegistrationsTests
     {
         private IOrderedJobs _testInstance;
 
@@ -14,6 +14,10 @@ namespace CodeKata_OrderedJobs_Test
         {
             _testInstance = new OrderedJobsImpl();
         }
+
+        [TestMethod]
+        public void RegisterNothing_OutNothing_Sort() 
+            => Assert.AreEqual("", _testInstance.Sort(""));
 
         [TestMethod]
         public void RegisterSingleJob_Sort()

@@ -42,17 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="1_BL\IOrderedJobs.cs" />
-    <Compile Include="1_BL\JobSorter.cs" />
-    <Compile Include="1_BL\OrderedJobsImpl.cs" />
+    <Compile Include="Source\IOrderedJobs.cs" />
+    <Compile Include="Source\JobSorter.cs" />
+    <Compile Include="Source\OrderedJobsImpl.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="2_Infrastructure\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

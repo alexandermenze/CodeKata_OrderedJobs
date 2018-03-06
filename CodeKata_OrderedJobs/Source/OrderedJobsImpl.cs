@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace CodeKata_OrderedJobs.BL
+namespace CodeKata_OrderedJobs.Source
 {
     public class OrderedJobsImpl : IOrderedJobs
     {
@@ -22,7 +24,16 @@ namespace CodeKata_OrderedJobs.BL
                 _jobIds.Add(jobId);
         }
 
-        public string Sort() 
-            => new JobSorter(_jobIds, _rules).Sort();
+        public string Sort()
+        {
+            return new JobSorter(_jobIds, _rules).Sort();
+        }
+
+        public string Sort(string registrations)
+        {
+            return string.IsNullOrEmpty(registrations)
+                ? ""
+                : registrations.Split(new[] {"=>"}, StringSplitOptions.RemoveEmptyEntries).First().Trim();
+        }
     }
 }
